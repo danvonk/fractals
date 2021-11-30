@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/home/dan/CLionProjects/fractals/build",
+  "command": "/usr/bin/c++  -I/home/dan/CLionProjects/fractals/src -I/usr/include/SDL2 -I/home/dan/dev/boost_1_77_0 -I/home/dan/CLionProjects/fractals/stx::include -I/home/dan/CLionProjects/fractals/dep/STX/include -Wall -Wextra -Wpedantic -Werror -std=gnu++20 -o CMakeFiles/fractals.dir/src/gfx/vbo.cpp.o -c /home/dan/CLionProjects/fractals/src/gfx/vbo.cpp",
+  "file": "/home/dan/CLionProjects/fractals/src/gfx/vbo.cpp"
+},
+{
+  "directory": "/home/dan/CLionProjects/fractals/build",
+  "command": "/usr/bin/c++  -I/home/dan/CLionProjects/fractals/src -I/usr/include/SDL2 -I/home/dan/dev/boost_1_77_0 -I/home/dan/CLionProjects/fractals/stx::include -I/home/dan/CLionProjects/fractals/dep/STX/include -Wall -Wextra -Wpedantic -Werror -std=gnu++20 -o CMakeFiles/fractals.dir/src/gfx/vertexarray.cpp.o -c /home/dan/CLionProjects/fractals/src/gfx/vertexarray.cpp",
+  "file": "/home/dan/CLionProjects/fractals/src/gfx/vertexarray.cpp"
+},
+{
+  "directory": "/home/dan/CLionProjects/fractals/build",
+  "command": "/usr/bin/c++  -I/home/dan/CLionProjects/fractals/src -I/usr/include/SDL2 -I/home/dan/dev/boost_1_77_0 -I/home/dan/CLionProjects/fractals/stx::include -I/home/dan/CLionProjects/fractals/dep/STX/include -Wall -Wextra -Wpedantic -Werror -std=gnu++20 -o CMakeFiles/fractals.dir/src/gfx/shader.cpp.o -c /home/dan/CLionProjects/fractals/src/gfx/shader.cpp",
+  "file": "/home/dan/CLionProjects/fractals/src/gfx/shader.cpp"
+},
+{
+  "directory": "/home/dan/CLionProjects/fractals/build",
+  "command": "/usr/bin/c++  -I/home/dan/CLionProjects/fractals/src -I/usr/include/SDL2 -I/home/dan/dev/boost_1_77_0 -I/home/dan/CLionProjects/fractals/stx::include -I/home/dan/CLionProjects/fractals/dep/STX/include -Wall -Wextra -Wpedantic -Werror -std=gnu++20 -o CMakeFiles/fractals.dir/src/gfx/shaderprogram.cpp.o -c /home/dan/CLionProjects/fractals/src/gfx/shaderprogram.cpp",
+  "file": "/home/dan/CLionProjects/fractals/src/gfx/shaderprogram.cpp"
+},
+{
+  "directory": "/home/dan/CLionProjects/fractals/build",
+  "command": "/usr/bin/c++  -I/home/dan/CLionProjects/fractals/src -I/usr/include/SDL2 -I/home/dan/dev/boost_1_77_0 -I/home/dan/CLionProjects/fractals/stx::include -I/home/dan/CLionProjects/fractals/dep/STX/include -Wall -Wextra -Wpedantic -Werror -std=gnu++20 -o CMakeFiles/fractals.dir/src/main.cpp.o -c /home/dan/CLionProjects/fractals/src/main.cpp",
+  "file": "/home/dan/CLionProjects/fractals/src/main.cpp"
+},
+{
+  "directory": "/home/dan/CLionProjects/fractals/build",
+  "command": "/usr/bin/c++  -I/home/dan/CLionProjects/fractals/src -I/usr/include/SDL2 -I/home/dan/dev/boost_1_77_0 -I/home/dan/CLionProjects/fractals/stx::include -I/home/dan/CLionProjects/fractals/dep/STX/include -Wall -Wextra -Wpedantic -Werror -std=gnu++20 -o CMakeFiles/fractals.dir/src/window.cpp.o -c /home/dan/CLionProjects/fractals/src/window.cpp",
+  "file": "/home/dan/CLionProjects/fractals/src/window.cpp"
+},
+{
+  "directory": "/home/dan/CLionProjects/fractals/build/dep/STX",
+  "command": "/usr/bin/c++  -I/home/dan/CLionProjects/fractals/dep/STX/include -Wall -Wextra -Wpedantic -Werror -std=gnu++20 -o CMakeFiles/stx.dir/src/panic/hook.cc.o -c /home/dan/CLionProjects/fractals/dep/STX/src/panic/hook.cc",
+  "file": "/home/dan/CLionProjects/fractals/dep/STX/src/panic/hook.cc"
+},
+{
+  "directory": "/home/dan/CLionProjects/fractals/build/dep/STX",
+  "command": "/usr/bin/c++  -I/home/dan/CLionProjects/fractals/dep/STX/include -Wall -Wextra -Wpedantic -Werror -std=gnu++20 -o CMakeFiles/stx.dir/src/panic.cc.o -c /home/dan/CLionProjects/fractals/dep/STX/src/panic.cc",
+  "file": "/home/dan/CLionProjects/fractals/dep/STX/src/panic.cc"
+}
+]
