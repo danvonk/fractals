@@ -39,6 +39,7 @@ namespace fr {
         explicit BoundVertexArray(VertexArray* v);
 
         auto draw() -> void;
+        auto draw(int no_elements) -> void;
 
     private:
         GLuint vao_id_;

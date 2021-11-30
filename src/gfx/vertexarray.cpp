@@ -39,13 +39,6 @@ auto VertexArray::attach(std::shared_ptr<VertexBuffer> vbo) -> void {
         offset += a.size;
         glVertexAttribBinding(i, 0);
     }
-
-//    glEnableVertexAttribArray(0);
-//    glEnableVertexAttribArray(1);
-//    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
-//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
-//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 24, (void*)(3 * sizeof(float)));
-//    glEnableVertexArrayAttrib(id_, 1);
 }
 
 auto VertexArray::attach_attr(fr::VertexAttribute &v) -> void {
@@ -61,7 +54,14 @@ BoundVertexArray::BoundVertexArray(VertexArray *v)
 
 auto BoundVertexArray::draw() -> void {
     for (auto v : vao_->vbos_) {
-        auto vbo = v->bind();
+        v->bind();
         glDrawArrays(vao_->primitive_mode_, 0, v->get_no_elements());
+    }
+}
+
+auto BoundVertexArray::draw(int no_elements) -> void {
+    for (auto v : vao_->vbos_) {
+        v->bind();
+        glDrawArrays(vao_->primitive_mode_, 0, no_elements);
     }
 }

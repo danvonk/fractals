@@ -32,13 +32,13 @@ BoundVertexBuffer::BoundVertexBuffer(VertexBuffer* buf)
    : buf_(buf)
 {
     glBindBuffer(GL_ARRAY_BUFFER, buf->getID());
-    std::cout << "Bind vbo.\n";
 }
 
-template<typename T>
-auto BoundVertexBuffer::set_data(const std::vector<T> &data) -> void {
-    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(T), (void*)data[0], GL_STATIC_DRAW);
-}
+//template<typename T, typename A>
+//auto BoundVertexBuffer::set_data(const std::vector<T, A> &data) -> void {
+//    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(T), (void*)data[0], GL_STATIC_DRAW);
+//    buf_->no_elements_ = data.size() * sizeof(T) / buf_->stride_;
+//}
 
 auto BoundVertexBuffer::set_data(size_t bytes_sz, const void* data, GLenum usage) -> void {
     glBufferData(GL_ARRAY_BUFFER, bytes_sz, data, usage);

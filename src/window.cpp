@@ -62,23 +62,23 @@ auto Window::init() -> void {
     vertices.push_back({fr::Vec3(+0.0f, +0.8f, 0.0f), fr::Vec3(1.0f, 1.0f, 1.0f)});
 
 
-
     shader_ = ShaderProgram::create({"../shaders/default.vsh", "../shaders/default.fsh"});
     vbo_ = VertexBuffer::create();
-    vbo_->set_attribute({"pos", GL_FLOAT, 2, 8});
+    vbo_->set_attribute({"pos", GL_FLOAT, 3, 12});
     vbo_->set_attribute({"col", GL_FLOAT, 3, 12});
 //    vbo->set_attribute({"col", GL_FLOAT, 12});
-    vbo_->bind().set_data(sizeof(verts), verts, GL_STATIC_DRAW);
+//    vbo_->bind().set_data(sizeof(verts), verts, GL_STATIC_DRAW);
+    vbo_->bind().set_data(vertices);
 //    vbo->bind().set_data(vertices);
 
     va_->attach(vbo_);
 
-    auto binds = shader_->get_attr_locs();
-
-    std::cout << "Bindings are:\n";
-    for (auto& [k,v] : binds) {
-        std::cout << k << " is " << v << '\n';
-    }
+//    auto binds = shader_->get_attr_locs();
+//
+//    std::cout << "Bindings are:\n";
+//    for (auto& [k,v] : binds) {
+//        std::cout << k << " is " << v << '\n';
+//    }
 }
 
 auto Window::update(float seconds) -> void {
@@ -86,10 +86,14 @@ auto Window::update(float seconds) -> void {
     glClear(GL_COLOR_BUFFER_BIT);
 
     seconds *= 3;
-    shader_->use();
-    va_->bind().draw();
+    auto prog = shader_->use();
+    prog.set_uniform("width", width_);
+    va_->bind().draw(6);
 }
 
 auto Window::on_resize(int w, int h) -> void {
     glViewport(0,0, w, h);
+    width_ = w;
+    height_ = h;
+    spdlog::info("Changed (w,h) to ({}, {})", w, h);
 }

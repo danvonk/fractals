@@ -2,13 +2,14 @@
 #define FRACTALS_SHADER_PROG_H
 
 #include "common.h"
-
+#include "maths/vec3.h"
 #include "shader.h"
 
 namespace fr {
     class BoundShaderProgram;
 
     class ShaderProgram {
+        friend class BoundShaderProgram;
     public:
         explicit ShaderProgram() noexcept;
         ~ShaderProgram();
@@ -18,7 +19,6 @@ namespace fr {
         auto use() -> BoundShaderProgram;
 
         auto attach_shader(std::shared_ptr<Shader> sh) -> void;
-//        auto set_uniform(std::string_view name) -> void;
         auto get_attr_locs() -> std::vector<std::pair<std::string, GLint>>;
 
         static auto get_curr_prog() -> BoundShaderProgram*;
@@ -35,7 +35,7 @@ namespace fr {
     public:
         explicit BoundShaderProgram(ShaderProgram* prog);
 
-
+        auto set_uniform(const std::string& s, float v) -> void;
     private:
         ShaderProgram* shp_;
     };

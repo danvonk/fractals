@@ -11,6 +11,7 @@ find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED)
 
 add_subdirectory(dep/STX)
+add_subdirectory(dep/spdlog)
 
 set(FR_HEADERS
         src/window.h
@@ -19,7 +20,9 @@ set(FR_HEADERS
         src/gfx/shader.h
         src/gfx/shaderprogram.h
         src/common.h
-        src/maths/mat4.h src/gfx/texture2d.h)
+        src/maths/mat4.h
+        src/gfx/texture2d.h
+        src/gfx/ebo.h)
 
 set(FR_SRCS
         src/gfx/vbo.cpp
@@ -27,7 +30,8 @@ set(FR_SRCS
         src/gfx/shader.cpp
         src/gfx/shaderprogram.cpp
         src/main.cpp
-        src/window.cpp)
+        src/window.cpp
+        src/gfx/ebo.cpp)
 
 add_executable(fractals ${FR_SRCS} ${FR_HEADERS})
 
@@ -37,9 +41,11 @@ target_include_directories(fractals PUBLIC ${OPENGL_INCLUDE_DIRS})
 target_include_directories(fractals PUBLIC ${Boost_INCLUDE_DIRS})
 target_include_directories(fractals PUBLIC ${GLEW_INCLUDE_DIRS})
 target_include_directories(fractals PUBLIC stx::include)
+target_include_directories(fractals PUBLIC spdlog)
 
 target_link_libraries(fractals
         ${SDL2_LIBRARIES}
         ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES})
 target_link_libraries(fractals stx)
+target_link_libraries(fractals spdlog)

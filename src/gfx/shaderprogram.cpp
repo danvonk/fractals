@@ -36,15 +36,15 @@ auto ShaderProgram::link() -> void {
         log.resize(unsigned(logLength) + 1);
         glGetProgramInfoLog(id_, logLength + 1, nullptr, log.data());
 
-        std::cerr << "Shader linker: " << log.data();
+        spdlog::error("Shader linker returned:");
+        spdlog::error(log.data());
     } else {
-        std::cout << "Linked shader\n";
+        spdlog::info("Linked shader.");
     }
 }
 
 auto ShaderProgram::use() -> BoundShaderProgram {
     glUseProgram(id_);
-    std::cout << "Use shader " << id_ << '\n';
     return BoundShaderProgram(this);
 }
 
@@ -118,4 +118,9 @@ BoundShaderProgram::BoundShaderProgram(ShaderProgram* prog)
     : shp_(prog)
 {
    currently_bound = this;
+}
+
+auto BoundShaderProgram::set_uniform(const std::string& s, float v) -> void {
+    auto loc = glGetUniformLocation(shp_->id_, s.c_str());
+    glUniform1f(loc, v);
 }

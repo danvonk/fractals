@@ -1,11 +1,20 @@
-#include <GL/glew.h>
+#include <chrono>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #include "common.h"
 #include "window.h"
 
 using namespace fr::window;
 
+auto init_logging() -> void {
+    // create color multi threaded logger
+    auto console = spdlog::stdout_color_mt("console");
+    auto err_logger = spdlog::stderr_color_mt("stderr");
+}
+
 int main() {
+    init_logging();
+
     SDL_Init(SDL_INIT_VIDEO);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
@@ -21,17 +30,24 @@ int main() {
 
     auto ctx = SDL_GL_CreateContext(window);
     if (!ctx) {
-        std::cerr << "Could not create OpenGL Context.\n";
+        spdlog::error("Could not create OpenGL Context");
         const char* err_str = SDL_GetError();
         std::cerr << err_str;
         SDL_Quit();
         return 1;
+    } else {
+        std::string vendor((const char*)glGetString(GL_VENDOR));
+        std::string version((const char*)glGetString(GL_VERSION));
+        std::string glsl((const char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
+        spdlog::info("OpenGL vendor: {}", vendor);
+        spdlog::info("OpenGL version: {}", version);
+        spdlog::info("OpenGL GLSL version: {}", glsl);
     }
 
     glewExperimental = GL_TRUE;
     auto glew_init = glewInit();
     if (glew_init != GLEW_OK) {
-        std::cerr << "Could not initialise GLEW.\n";
+        spdlog::error("Could not initialise GLEW");
         return 1;
     }
 
@@ -40,6 +56,9 @@ int main() {
     Window app(*window, ws);
 
     app.init();
+
+    auto prev_time = std::chrono::system_clock::now();
+    auto curr_time = std::chrono::system_clock::now();
 
     while (running) {
         SDL_Event ev;
@@ -60,8 +79,10 @@ int main() {
                 }
             }
         }
+        prev_time = curr_time;
+        curr_time = std::chrono::system_clock::now();
 
-        app.update(0.0f);
+        app.update(std::chrono::duration_cast<std::chrono::seconds>(curr_time - prev_time).count());
         SDL_GL_SwapWindow(window);
     }
 

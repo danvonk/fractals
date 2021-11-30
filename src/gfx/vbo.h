@@ -68,12 +68,11 @@ namespace fr {
     public:
         explicit BoundVertexBuffer(VertexBuffer* buf);
 
-        ~BoundVertexBuffer() {
-//            glBindBuffer(GL_ARRAY_BUFFER, 0);
+        template <typename T, typename A>
+        auto set_data(const std::vector<T, A>& data) -> void {
+            glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(T), (void*)data.data(), GL_STATIC_DRAW);
+            buf_->no_elements_ = data.size() * sizeof(T) / buf_->stride_;
         }
-
-        template <typename T>
-        auto set_data(const std::vector<T>& data) -> void;
 
         auto set_data(size_t bytes_sz, const void* data, GLenum usage) -> void;
 
