@@ -32,8 +32,8 @@ auto Shader::compile() -> void {
             logOutput = std::string(log.data());
         }
 
-        std::cerr << "Log for " << filename_ << '\n';
-        std::cerr << "Shader compiler: " << logOutput << '\n';
+        spdlog::error("Shader was not compiled:");
+        spdlog::error(logOutput);
         compiled_ = false;
     } else {
         compiled_ = true;

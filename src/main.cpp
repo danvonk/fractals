@@ -79,6 +79,7 @@ int main() {
                 }
             }
         }
+
         prev_time = curr_time;
         curr_time = std::chrono::system_clock::now();
 

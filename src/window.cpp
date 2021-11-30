@@ -61,7 +61,6 @@ auto Window::init() -> void {
     vertices.push_back({fr::Vec3(+0.8f, -0.8f, 0.0f), fr::Vec3(0.0f, 1.0f, 0.0f)});
     vertices.push_back({fr::Vec3(+0.0f, +0.8f, 0.0f), fr::Vec3(1.0f, 1.0f, 1.0f)});
 
-
     shader_ = ShaderProgram::create({"../shaders/default.vsh", "../shaders/default.fsh"});
     vbo_ = VertexBuffer::create();
     vbo_->set_attribute({"pos", GL_FLOAT, 3, 12});

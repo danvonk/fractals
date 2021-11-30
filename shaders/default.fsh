@@ -1,7 +1,7 @@
 #version 450
 
-in vec3 vCol;
 in vec4 gl_FragCoord;
+in vec2 vUV;
 
 out vec4 fCol;
 
