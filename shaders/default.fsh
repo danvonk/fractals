@@ -5,14 +5,16 @@ in vec2 vUV;
 
 out vec4 fCol;
 
-uniform float width;
-uniform float height;
+uniform int width;
+uniform int height;
 uniform float zoom;
-uniform float runtime;
+uniform int max_iters;
+uniform float offsetX;
+uniform float offsetY;
 
 vec3 colorFunc(int iter) {
     // Color in HSV - Tweak these values to your liking and for different coloring effects
-    vec3 color = vec3(0.012*iter , 1.0, 0.2+.4*(1.0+sin(0.3*iter)));
+    vec3 color = vec3(0.01*iter , 1.0, 0.1+.4*(1.0+sin(0.3*iter)));
 
     // Convert from HSV to RGB
     // Taken from: http://lolengine.net/blog/2013/07/27/rgb-to-hsv-in-glsl
@@ -23,16 +25,14 @@ vec3 colorFunc(int iter) {
 
 
 int iters() {
-    float re = (gl_FragCoord.x / width - 0.5) * zoom * 4.0;
-    float im = (gl_FragCoord.y / height - 0.7) * zoom * 4.0;
-    //float re = (vUV.x / width) * zoom * 0.00000000002;
-    //float im = (vUV.y / height) * zoom * 0.000000002;
+    float re = (gl_FragCoord.x / width) * zoom + offsetX;
+    float im = (gl_FragCoord.y / height) * zoom + offsetY;
 
-    int iterations = 0;
     float const_re = re;
     float const_im = im;
 
-    while (iterations < 500) {
+    int iterations = 0;
+    for (; iterations < max_iters; iterations++) {
           float tmp_re = re;
           re = (re * re - im * im) + const_re;
           im = (2.0 * tmp_re * im) + const_im;
@@ -40,25 +40,21 @@ int iters() {
           if (dist > 4.0) {
              break;
           }
-          iterations++;
     }
     return iterations;
 }
 
 vec4 mbrot_color() {
      int its = iters();
-     if (its == 500) {
+     if (its == max_iters) {
         // in set
         gl_FragDepth = 0.0;
         return vec4(0.0, 0.0, 0.0, 1.0);
      } else {
          return vec4(colorFunc(its), 1.0);
      }
-
 }
 
 void main() {
-//    fCol = vec4(vCol, 1.0);
-//    fCol = vec4(1.0, 0.0, 0.0, 1.0);
       fCol = mbrot_color();
 }

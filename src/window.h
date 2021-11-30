@@ -24,6 +24,12 @@ namespace fr {
             bool fullscreen;
         };
 
+        /**
+         * Retrieve window settings from the config file. WindowSettings is used
+         * to construct the Window class
+         * @param path relative path to config file
+         * @return Result type wrapping the struct
+         */
         auto get_window_settings(const std::string &path) -> stx::Result<WindowSettings, Error>;
 
         class Window {
@@ -32,7 +38,7 @@ namespace fr {
             ~Window() = default;
 
             auto init() -> void;
-            auto update(float seconds) -> void;
+            auto update(float ms) -> void;
 
             auto on_resize(int w, int h) -> void;
             auto on_keydown(const SDL_KeyboardEvent& key_ev) -> void;
@@ -51,6 +57,9 @@ namespace fr {
 
             // shader properties
             float zoom_;
+            const static int iterations_ = 900;
+            float offsetX_ = 0.0f;
+            float offsetY_ = 0.0f;
         };
     }
 }

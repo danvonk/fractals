@@ -46,8 +46,8 @@ auto VertexArray::attach_attr(fr::VertexAttribute &v) -> void {
 }
 
 BoundVertexArray::BoundVertexArray(VertexArray *v)
-: vao_id_(v->getID())
-, vao_(v)
+    : vao_id_(v->getID())
+    , vao_(v)
 {
     glBindVertexArray(v->getID());
 }

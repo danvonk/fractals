@@ -16,15 +16,6 @@ ShaderProgram::~ShaderProgram() {
     glDeleteProgram(id_);
 }
 
-//auto ShaderProgram::create(std::string_view name) -> std::shared_ptr<ShaderProgram> {
-//    auto shp = std::make_shared<ShaderProgram>();
-//
-//    // look for shaders
-//
-//    shp->link();
-//    return shp;
-//}
-
 auto ShaderProgram::link() -> void {
     glLinkProgram(id_);
     // check error log
@@ -67,7 +58,7 @@ auto ShaderProgram::create(const std::vector<std::string> &paths) -> std::shared
                 vsh->set_filename(fs_path.stem());
                 shp->attach_shader(vsh);
             }
-    }
+        }
     }
     shp->link();
     return shp;
@@ -110,9 +101,6 @@ auto ShaderProgram::get_curr_prog() -> BoundShaderProgram * {
     return currently_bound;
 }
 
-//auto ShaderProgram::set_uniform(std::string_view name) -> void {
-//
-//}
 
 BoundShaderProgram::BoundShaderProgram(ShaderProgram* prog)
     : shp_(prog)
@@ -123,4 +111,9 @@ BoundShaderProgram::BoundShaderProgram(ShaderProgram* prog)
 auto BoundShaderProgram::set_uniform(const std::string& s, float v) -> void {
     auto loc = glGetUniformLocation(shp_->id_, s.c_str());
     glUniform1f(loc, v);
+}
+
+auto BoundShaderProgram::set_uniform(const std::string &s, int v) -> void {
+    auto loc = glGetUniformLocation(shp_->id_, s.c_str());
+    glUniform1i(loc, v);
 }

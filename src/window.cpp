@@ -24,7 +24,6 @@ struct Vertex {
     fr::Vec3f colour;
 };
 
-
 auto fr::window::get_window_settings(const string &path) -> Result<WindowSettings> {
         pt::ptree props;
         pt::read_ini(path, props);
@@ -62,23 +61,12 @@ auto Window::init() -> void {
     vbo_ = VertexBuffer::create();
     vbo_->set_attribute({"pos", GL_FLOAT, 3, 12});
     vbo_->set_attribute({"col", GL_FLOAT, 3, 12});
-//    vbo->set_attribute({"col", GL_FLOAT, 12});
-//    vbo_->bind().set_data(sizeof(verts), verts, GL_STATIC_DRAW);
     vbo_->bind().set_data(vertices);
-//    vbo->bind().set_data(vertices);
-
     va_->attach(vbo_);
-
-//    auto binds = shader_->get_attr_locs();
-//
-//    std::cout << "Bindings are:\n";
-//    for (auto& [k,v] : binds) {
-//        std::cout << k << " is " << v << '\n';
-//    }
 }
 
-auto Window::update(float seconds) -> void {
-    runtime_ += seconds;
+auto Window::update(float ms) -> void {
+    runtime_ += ms;
 
     glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -87,7 +75,9 @@ auto Window::update(float seconds) -> void {
     prog.set_uniform("width", width_);
     prog.set_uniform("height", height_);
     prog.set_uniform("zoom", zoom_);
-    prog.set_uniform("runtime", runtime_);
+    prog.set_uniform("offsetX", offsetX_);
+    prog.set_uniform("offsetY", offsetY_);
+    prog.set_uniform("max_iters", iterations_);
     va_->bind().draw(6);
 }
 
@@ -101,12 +91,22 @@ auto Window::on_resize(int w, int h) -> void {
 auto Window::on_keydown(const SDL_KeyboardEvent& key_ev) -> void {
     switch (key_ev.keysym.sym) {
         case SDLK_PLUS:
-            zoom_ += 0.1f;
-            spdlog::info("Zooming in to {}x", zoom_);
+            zoom_ += 0.01f;
             break;
         case SDLK_MINUS:
-            spdlog::info("Zooming out to {}x", zoom_);
-            zoom_ = std::max(zoom_ - 0.1f, 0.0f);
+            zoom_ = std::max(zoom_ - 0.01f, 0.000001f);
+            break;
+        case SDLK_LEFT:
+            offsetX_ -= 0.01f;
+            break;
+        case SDLK_RIGHT:
+            offsetX_ += 0.01f;
+            break;
+        case SDLK_UP:
+            offsetY_ += 0.01f;
+            break;
+        case SDLK_DOWN:
+            offsetY_ -= 0.01f;
             break;
         default:
             break;

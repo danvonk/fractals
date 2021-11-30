@@ -8,12 +8,28 @@ namespace fr {
     public:
         explicit Shader(GLenum type) noexcept;
 
+        /**
+         * Create a new shader
+         * @param type GL_FRAGMENT etc.
+         * @param src string containing entire source file of shader
+         * @return constructed shader
+         */
         static auto create(GLenum type, std::string src) -> std::shared_ptr<Shader>;
 
+        /**
+         * Compile the shader. Check log for errors
+         */
         auto compile() -> void;
 
+        /**
+         * Set the source code and recompile
+         * @param src string containing entire source file of shader
+         */
         auto set_source(std::string src) -> void;
-        auto se_source(std::string_view src) -> void;
+        /**
+         * Set the filename. Useful for debugging
+         * @param fname name of shader for debugging
+         */
         auto set_filename(std::string fname) -> void;
 
         [[nodiscard]]

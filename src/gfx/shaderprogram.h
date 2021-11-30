@@ -15,7 +15,6 @@ namespace fr {
         ~ShaderProgram();
 
         auto link() -> void;
-
         auto use() -> BoundShaderProgram;
 
         auto attach_shader(std::shared_ptr<Shader> sh) -> void;
@@ -23,7 +22,11 @@ namespace fr {
 
         static auto get_curr_prog() -> BoundShaderProgram*;
 
-        //static auto create(std::string_view name) -> std::shared_ptr<ShaderProgram>;
+        /**
+         * Statically create a new shader program, given a vector of shader file locations (relative)
+         * @param paths vector of relative file paths
+         * @return constructed ShaderProgram
+         */
         static auto create(const std::vector<std::string>& paths) -> std::shared_ptr<ShaderProgram>;
 
     private:
@@ -36,6 +39,7 @@ namespace fr {
         explicit BoundShaderProgram(ShaderProgram* prog);
 
         auto set_uniform(const std::string& s, float v) -> void;
+        auto set_uniform(const std::string& s, int v) -> void;
     private:
         ShaderProgram* shp_;
     };

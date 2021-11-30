@@ -7,6 +7,13 @@
 namespace fr {
     class BoundVertexBuffer;
     struct VertexAttribute {
+        /**
+         * Construct a new vertex attribute
+         * @param n name of attribute
+         * @param t OpenGL type
+         * @param comps no. of components (e.g. 3 for Vec3)
+         * @param stride size in bytes of the attribute
+         */
         VertexAttribute(std::string n, GLenum t, int comps, size_t stride)
             : name(std::move(n))
             , type(t)
@@ -32,6 +39,11 @@ namespace fr {
            return std::make_shared<VertexBuffer>();
         }
 
+        /**
+         * Static constructor for VBO
+         * @param attrs list of attrbitues
+         * @return constructed VBO
+         */
         static auto create(const std::vector<VertexAttribute>& attrs) -> std::shared_ptr<VertexBuffer>;
 
        [[nodiscard]]
