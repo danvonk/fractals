@@ -69,6 +69,7 @@ int main() {
                         running = false;
                         break;
                     default:
+                        app.on_keydown(ev.key);
                         break;
                 }
             } else if (ev.type == SDL_QUIT) {
@@ -83,7 +84,7 @@ int main() {
         prev_time = curr_time;
         curr_time = std::chrono::system_clock::now();
 
-        app.update(std::chrono::duration_cast<std::chrono::seconds>(curr_time - prev_time).count());
+        app.update(std::chrono::duration_cast<std::chrono::milliseconds>(curr_time - prev_time).count());
         SDL_GL_SwapWindow(window);
     }
 

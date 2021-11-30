@@ -33,18 +33,24 @@ namespace fr {
 
             auto init() -> void;
             auto update(float seconds) -> void;
+
             auto on_resize(int w, int h) -> void;
+            auto on_keydown(const SDL_KeyboardEvent& key_ev) -> void;
 
         private:
             SDL_Window *wnd_;
             int width_;
             int height_;
             bool fullscreen_;
+            float runtime_;
 
             // rendering objects
             std::shared_ptr<VertexBuffer> vbo_;
             std::shared_ptr<ShaderProgram> shader_;
             std::shared_ptr<VertexArray> va_;
+
+            // shader properties
+            float zoom_;
         };
     }
 }

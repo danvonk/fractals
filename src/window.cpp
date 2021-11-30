@@ -24,12 +24,6 @@ struct Vertex {
     fr::Vec3f colour;
 };
 
-GLfloat verts[] = {
-        0.0f,  0.5f, 1.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f, 0.0f, 0.0f, 1.0f
-};
-
 
 auto fr::window::get_window_settings(const string &path) -> Result<WindowSettings> {
         pt::ptree props;
@@ -50,6 +44,9 @@ Window::Window(SDL_Window& wnd, const WindowSettings& ws) noexcept {
         width_ = ws.width;
         height_ = ws.height;
         fullscreen_ = ws.fullscreen;
+        runtime_ = 0.0f;
+
+        zoom_ = 1.0f;
 }
 
 auto Window::init() -> void {
@@ -81,12 +78,16 @@ auto Window::init() -> void {
 }
 
 auto Window::update(float seconds) -> void {
-    glClearColor(0.1f, 0.2f, 0.0f, 1.0f);
+    runtime_ += seconds;
+
+    glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    seconds *= 3;
     auto prog = shader_->use();
     prog.set_uniform("width", width_);
+    prog.set_uniform("height", height_);
+    prog.set_uniform("zoom", zoom_);
+    prog.set_uniform("runtime", runtime_);
     va_->bind().draw(6);
 }
 
@@ -95,4 +96,19 @@ auto Window::on_resize(int w, int h) -> void {
     width_ = w;
     height_ = h;
     spdlog::info("Changed (w,h) to ({}, {})", w, h);
+}
+
+auto Window::on_keydown(const SDL_KeyboardEvent& key_ev) -> void {
+    switch (key_ev.keysym.sym) {
+        case SDLK_PLUS:
+            zoom_ += 0.1f;
+            spdlog::info("Zooming in to {}x", zoom_);
+            break;
+        case SDLK_MINUS:
+            spdlog::info("Zooming out to {}x", zoom_);
+            zoom_ = std::max(zoom_ - 0.1f, 0.0f);
+            break;
+        default:
+            break;
+    }
 }
