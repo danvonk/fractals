@@ -39,6 +39,7 @@ namespace fr {
 
             auto init() -> void;
             auto update(float ms) -> void;
+            auto gui() -> void;
 
             auto on_resize(int w, int h) -> void;
             auto on_keydown(const SDL_KeyboardEvent& key_ev) -> void;
@@ -57,7 +58,7 @@ namespace fr {
 
             // shader properties
             float zoom_;
-            const static int iterations_ = 900;
+            int iterations_ = 900;
             float offsetX_ = 0.0f;
             float offsetY_ = 0.0f;
         };

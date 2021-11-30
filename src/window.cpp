@@ -7,6 +7,10 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 
+#include "util/imgui.h"
+#include "util/backends/imgui_impl_opengl3.h"
+#include "util/backends/imgui_impl_sdl.h"
+
 using stx::Ok;
 using stx::Err;
 using std::string_view;
@@ -111,4 +115,19 @@ auto Window::on_keydown(const SDL_KeyboardEvent& key_ev) -> void {
         default:
             break;
     }
+}
+
+auto Window::gui() -> void {
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    ImGui::Begin("Fractals");
+    ImGui::Text("Average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::Text("Zoom is %fx", zoom_);
+    ImGui::Text("Mandelbrot Iterations:");
+    ImGui::InputInt("iterations", &iterations_, 10);
+    ImGui::End();
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

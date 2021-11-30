@@ -13,9 +13,7 @@ uniform float offsetX;
 uniform float offsetY;
 
 vec3 colorFunc(int iter) {
-    // Color in HSV - Tweak these values to your liking and for different coloring effects
     vec3 color = vec3(0.01*iter , 1.0, 0.1+.4*(1.0+sin(0.3*iter)));
-
     // Convert from HSV to RGB
     // Taken from: http://lolengine.net/blog/2013/07/27/rgb-to-hsv-in-glsl
     vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);

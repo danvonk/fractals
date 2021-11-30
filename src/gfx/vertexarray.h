@@ -1,7 +1,6 @@
 #ifndef FRACTAL_VERTEXARRAY_H
 #define FRACTAL_VERTEXARRAY_H
 
-//#include "SDL_opengl.h"
 #include "common.h"
 #include "vbo.h"
 

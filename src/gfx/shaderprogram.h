@@ -18,6 +18,11 @@ namespace fr {
         auto use() -> BoundShaderProgram;
 
         auto attach_shader(std::shared_ptr<Shader> sh) -> void;
+        /**
+         * Returns an assoc. array of attributes and their binding
+         * positions.
+         * @return
+         */
         auto get_attr_locs() -> std::vector<std::pair<std::string, GLint>>;
 
         static auto get_curr_prog() -> BoundShaderProgram*;
