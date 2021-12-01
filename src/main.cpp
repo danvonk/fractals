@@ -19,9 +19,13 @@ auto init_logging() -> void {
 auto init_imgui(SDL_Window* w, SDL_GLContext* ctx) -> void {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+
     ImGui::StyleColorsDark();
     ImGui_ImplSDL2_InitForOpenGL(w, ctx);
     ImGui_ImplOpenGL3_Init("#version 430");
+
+    io.Fonts->AddFontFromFileTTF("../res/Roboto-Regular.ttf", 16.0f);
 }
 
 auto cleanup_imgui() -> void {
