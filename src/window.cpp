@@ -123,7 +123,8 @@ auto Window::gui() -> void {
     ImGui::NewFrame();
 
     ImGui::Begin("Fractals");
-    ImGui::Text("Average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::Text("Average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                ImGui::GetIO().Framerate);
     ImGui::Text("Zoom is %fx", zoom_);
     ImGui::Text("Mandelbrot Iterations:");
     ImGui::InputInt("iterations", &iterations_, 10);

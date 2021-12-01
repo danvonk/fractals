@@ -4,9 +4,8 @@ set(CMAKE_POLICY_DEFAULT_CMP0054 NEW)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-#add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+# add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
-#find_package(SDL2 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED)
@@ -58,16 +57,15 @@ set(IMGUI_SRCS
 add_executable(fractals ${FR_SRCS} ${FR_HEADERS} ${IMGUI_SRCS} ${IMGUI_HDRS})
 
 target_include_directories(fractals PRIVATE ${CMAKE_SOURCE_DIR}/src)
-#target_include_directories(fractals PUBLIC ${SDL2_INCLUDE_DIRS})
-target_include_directories(fractals PUBLIC ${OPENGL_INCLUDE_DIRS})
 target_include_directories(fractals PUBLIC ${Boost_INCLUDE_DIRS})
-target_include_directories(fractals PUBLIC ${GLEW_INCLUDE_DIRS})
+target_include_directories(fractals PUBLIC OpenGL::GL)
+target_include_directories(fractals PUBLIC GLEW::glew)
 target_include_directories(fractals PUBLIC stx::include)
 target_include_directories(fractals PUBLIC spdlog)
 target_include_directories(fractals PUBLIC SDL2::Video)
 
 target_link_libraries(fractals
-        ${GLEW_LIBRARIES}
+        GLEW::glew
         OpenGL::GL
         ${CMAKE_DL_LIBS})
 

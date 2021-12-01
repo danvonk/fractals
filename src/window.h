@@ -58,7 +58,7 @@ namespace fr {
 
             // shader properties
             float zoom_;
-            int iterations_ = 900;
+            int iterations_ = 450;
             float offsetX_ = 0.0f;
             float offsetY_ = 0.0f;
         };
